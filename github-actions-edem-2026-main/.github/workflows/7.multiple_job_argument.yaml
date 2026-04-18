@@ -1,0 +1,31 @@
+name: Second Action - Multiple Job Parallel Parameterized
+
+on:
+  workflow_dispatch:
+    inputs:
+      debug_mode:
+        type: boolean
+        description: Debug
+        default: false
+        required: false
+      sample_value:
+        type: string
+        description: Cualquier valor
+        default: ""
+        required: false          
+
+jobs:
+  hello-world:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Fist Step
+      run: echo "Hello World"
+  bye-world:
+    if: ${{ github.event.inputs.debug_mode == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Fist Step
+      run: echo "Hello World"
+    - name: Second Step
+      run:  echo ${{ github.event.inputs.debug_mode }}          
